@@ -1,0 +1,30 @@
+{{#each API_OPS_CONFIG.[0].configuration}}
+    <div class="form-group">
+        <label>{{#if this.display_name}}{{this.display_name}} {{else}}{{this.pgroup}}{{/if}}<span class="red required">*</span></label>
+
+        {{#compare this.input "config_dropdown"}}
+            <select id={{this.configid}} name="{{this.configid}}_{{#each this.values}}{{#compare this.def_param 'Y'}}{{this.param_id}}{{/compare}}{{/each}}" class="form-control" required>
+
+                {{#each this.values}}
+                    <option class="{{this.param_id}}" value="{{#if this.dvalue}}{{this.dvalue}}{{else}}{{this.param_name}}{{/if}}" data-default="{{this.def_param}}" {{#compare this.def_param "Y"}}selected{{/compare}}>{{this.param_name}}</option>
+                {{/each}}
+
+            </select>
+        {{/compare}}
+
+        {{#compare this.input "config_date"}}
+        <div class="input-group date" >
+            <input type="text" class="form-control" name="{{this.configid}}_{{this.values.[0].param_id}}" readonly required placeholder="{{this.values.[0].value}}"/>
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+        {{/compare}}
+
+        {{#compare this.input "config_input"}}
+
+        <input type="text" class="form-control" name="{{this.configid}}_{{this.values.[0].param_id}}" required placeholder='{{this.values.[0].value}}' />
+        {{/compare}}
+    
+    </div>
+{{/each}}
