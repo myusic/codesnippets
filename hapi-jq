@@ -1,0 +1,45 @@
+   //detect change in select option
+   //concatenate into select name=configid_paramid
+    $('select').change(function(){
+        //grab option param_id (value)
+
+        var paramid = '';
+
+        var paramid = $(this).children('select option:selected').attr('class');
+        //console.log(paramid);
+          
+        //grab select name
+        var str2 = $(this).attr('name');
+
+        
+        var configid = str2.search('_');
+
+        if (configid > 0) {
+            //if has _, grab the first part
+            var str3 = str2.split('_')[0];
+            var name = str3 + '_' + paramid;
+           // console.log(name);
+            $(this).attr('name', name);
+        } else {
+            //if not append param_id to name
+            var name = str2 + '_' + paramid;
+           // console.log(name); 
+            $(this).attr('name', name);
+        }            
+
+    });
+    
+    //where data-default='S', attr('selected', 'selected');
+
+    $('option[data-default="S"]').attr('selected', 'selected');
+    
+    //where data-default='S', this select attr(name, configid_paramid);
+    $('select').each(function(){
+
+        if(($(this).children('option[data-default="S"]')).length > 0) {
+            var classn = $(this).children('option[data-default="S"]').attr('class');
+            console.log(classn);
+            var name = $(this).attr('id');
+            $(this).attr('name', name + '_' + classn);
+        }
+    });
